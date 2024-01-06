@@ -1,0 +1,9 @@
+# Ignorar la carpeta de dependencias de Node.js
+/node_modules
+
+# Ignorar los archivos generados por Next.js
+.next
+
+# Ignorar el archivo de variables de entorno local
+.env.local
+.env

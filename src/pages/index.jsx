@@ -25,6 +25,38 @@ export default function Home() {
       tarea: 'Limpiar las mesa de luz',
       resuelta: false
     },
+    {
+      tarea: 'Revisar abajo de la cama',
+      resuelta: false
+    },
+    {
+      tarea: 'Baño',
+      resuelta: false
+    },
+    {
+      tarea: 'Rejilla',
+      resuelta: false
+    },
+    {
+      tarea: 'Papel higiénico y rolo de cocina',
+      resuelta: false
+    },
+    {
+      tarea: 'Fosforos',
+      resuelta: false
+    },
+    {
+      tarea: 'Mantel y repasador',
+      resuelta: false
+    },
+    {
+      tarea: 'Revisar horno',
+      resuelta: false
+    },
+    {
+      tarea: 'Parrilla',
+      resuelta: false
+    },
   ]
 
 
@@ -34,6 +66,7 @@ export default function Home() {
 
 
 
+  const [finish, setFinish] = useState(0);
   const [checkList, setCheckList] = useState(initialCheckList);
   const [visibleAlerts, setVisibleAlerts] = useState(Array(initialCheckList.length).fill(true));
 
@@ -45,19 +78,24 @@ export default function Home() {
       return newVisibleAlerts;
     });
 
-    // Esperar un breve período antes de cambiar el estado de checkList
-    setTimeout(() => {
-      setCheckList((prevCheckList) => {
-        const newList = [...prevCheckList];
-        newList[index].resuelta = true;
-        checkAllTaskFinished(newList);
-        return newList;
-      });
-    }, 500); // Puedes ajustar el tiempo según la duración de tu animación
+
+    setCheckList((prevCheckList) => {
+      const newList = [...prevCheckList];
+      newList[index].resuelta = true;
+      checkAllTaskFinished(newList);
+      return newList;
+    });
   };
 
   const checkAllTaskFinished = (lista) => {
     const todasResueltas = lista.every(tarea => tarea.resuelta === true);
+    let auxArr = 0;
+    lista.forEach(e => {
+      if (e.resuelta) {
+        auxArr++
+      }
+    });
+    setFinish(auxArr)
     if (todasResueltas) {
       mostrarAlerta();
     }
@@ -80,7 +118,7 @@ export default function Home() {
           icon: 'success'
         });
         setCheckList(initialCheckList);
-
+        setFinish(0);
         // Reiniciar el estado de visibilidad de las alertas
         setVisibleAlerts(Array(initialCheckList.length).fill(true));
       }
@@ -90,7 +128,7 @@ export default function Home() {
   return (
     <main>
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm">
-        <h2 className="text-center mb-2">Listado de tareas</h2>
+        <h2 className="text-center mb-2">Listado de tareas {finish}/{checkList.length}</h2>
         {checkList.map((c, index) => (
           !c.resuelta && visibleAlerts[index] ? (
             <div
@@ -100,10 +138,10 @@ export default function Home() {
                 newVisibleAlerts[index] = true;
                 return newVisibleAlerts;
               })}
-              className={`mb-3 ${styles.fadeInOut} p-2`}
+              className={`${styles.fadeInOut} p-2 pb-1`}
             >
               <Alert variant="info">
-                <Alert.Heading> <h3>Tarea</h3> </Alert.Heading>
+                <Alert.Heading> <h3>Tarea #{index + 1}</h3> </Alert.Heading>
                 <p>{c.tarea}</p>
                 <hr />
                 <div className="d-flex justify-content-end pt-2">
@@ -116,8 +154,8 @@ export default function Home() {
           ) : null
         ))}
       </div>
-
       <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
+
         {/* Contenido adicional */}
       </div>
     </main>
