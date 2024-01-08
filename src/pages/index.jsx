@@ -216,12 +216,7 @@ export default function Home() {
 
   return (
     <main>
-      <div className="z-10 w-full max-w-5xl items-center justify-between text-sm">
-        <h2 className="text-center text-2xl mb-2">Listado de tareas {checkList.filter(tarea => tarea.resuelta === true).length}/{checkList.length}</h2>
-        <div className='p-3'>
-          <ProgressBar animated now={porcentajeResueltas} variant={colorBarra} />
-          {/* <ProgressBar animated now={((checkList.filter(tarea => tarea.resuelta === true).length) * 100 / checkList.length)} /> */}
-        </div>
+      <div className="z-10 w-full max-w-5xl items-center justify-between text-sm my-20">
         {checkList.map((c, index) => (
           !c.resuelta && visibleAlerts[index] ? (
             <div
@@ -233,11 +228,11 @@ export default function Home() {
               })}
               className={`${styles.fadeInOut} p-2 pb-1`}
             >
-              <Alert variant="info">
-                <Alert.Heading> <h4>Tarea #{index + 1}</h4> </Alert.Heading>
+              <Alert className='my-2' variant="info">
+                {/* <Alert.Heading> <h4>Tarea #{index + 1}</h4> </Alert.Heading> */}
                 <p className='text-lg'>{c.tarea}</p>
                 <hr />
-                <div className="d-flex justify-content-end pt-2">
+                <div className="d-grid pt-2">
                   <Button variant="outline-primary" onClick={() => setTask(index)}>
                     Finalizado
                   </Button>
@@ -246,6 +241,11 @@ export default function Home() {
             </div>
           ) : null
         ))}
+      </div>
+      <div className='p-8 bg-blue-950 fixed top-0 left-0 right-0 p-3'>
+        <h2 className="text-center text-2xl mb-2">Listado de tareas {checkList.filter(tarea => tarea.resuelta === true).length}/{checkList.length}</h2>
+        <ProgressBar animated now={porcentajeResueltas} variant={colorBarra} />
+        {/* <ProgressBar animated now={((checkList.filter(tarea => tarea.resuelta === true).length) * 100 / checkList.length)} /> */}
       </div>
       <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
 
