@@ -233,12 +233,12 @@ export default function Home() {
                 <p className='text-lg'>{c.tarea}</p>
                 <hr />
                 <div className="d-grid pt-2">
-                  <button class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold py-2 px-1 rounded-full shadow-lg" onClick={() => setTask(index)}>
+                  {/* <button class="bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold py-2 px-1 rounded-full shadow-lg" onClick={() => setTask(index)}>
                     Finalizado
-                  </button>
-                  {/*<Button variant="outline-primary" onClick={() => setTask(index)}>
+                  </button> */}
+                  <Button variant="outline-primary" className='bg-gradient-to-r from-blue-500 to-blue-700 text-white' onClick={() => setTask(index)}>
                     Finalizado
-            </Button>*/}
+                  </Button>
                 </div>
               </Alert>
             </div>
