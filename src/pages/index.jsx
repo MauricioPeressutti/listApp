@@ -138,6 +138,8 @@ export default function Home() {
   const [finish, setFinish] = useState(0);
   const [checkList, setCheckList] = useState(initialCheckList);
   const [visibleAlerts, setVisibleAlerts] = useState(Array(initialCheckList.length).fill(true));
+  const [colorBarra, setColorBarra] = useState('danger');
+  const [porcentajeResueltas, setPorcentajeResueltas] = useState(0);
 
   const setTask = (index) => {
     // Activar animación al presionar "Finalizado"
@@ -152,6 +154,22 @@ export default function Home() {
       const newList = [...prevCheckList];
       newList[index].resuelta = true;
       checkAllTaskFinished(newList);
+      const resuelt = (checkList.filter(tarea => tarea.resuelta === true).length * 100 / checkList.length);
+      setPorcentajeResueltas(resuelt)
+      let colorBarra;
+      if (resuelt <= 25) {
+        colorBarra = 'danger';
+        setColorBarra('danger')
+      } else if (resuelt <= 50) {
+        colorBarra = 'warning';
+        setColorBarra('warning')
+      } else if (resuelt <= 75) {
+        colorBarra = 'info';
+        setColorBarra('info')
+      } else {
+        colorBarra = 'success';
+        setColorBarra('success')
+      }
       return newList;
     });
   };
@@ -190,6 +208,8 @@ export default function Home() {
         setFinish(0);
         // Reiniciar el estado de visibilidad de las alertas
         setVisibleAlerts(Array(initialCheckList.length).fill(true));
+        setColorBarra('danger');
+        setPorcentajeResueltas('0')
       }
     });
   };
@@ -199,7 +219,8 @@ export default function Home() {
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm">
         <h2 className="text-center text-2xl mb-2">Listado de tareas {checkList.filter(tarea => tarea.resuelta === true).length}/{checkList.length}</h2>
         <div className='p-3'>
-          <ProgressBar animated now={((checkList.filter(tarea => tarea.resuelta === true).length) * 100 / checkList.length)} />
+          <ProgressBar animated now={porcentajeResueltas} variant={colorBarra} />
+          {/* <ProgressBar animated now={((checkList.filter(tarea => tarea.resuelta === true).length) * 100 / checkList.length)} /> */}
         </div>
         {checkList.map((c, index) => (
           !c.resuelta && visibleAlerts[index] ? (
