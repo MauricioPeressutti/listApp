@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import styles from '../styles/styles.module.css'
+import ProgressBar from 'react-bootstrap/ProgressBar';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -55,6 +56,74 @@ export default function Home() {
     },
     {
       tarea: 'Parrilla',
+      resuelta: false
+    },
+    {
+      tarea: 'Barrer',
+      resuelta: false
+    },
+    {
+      tarea: 'Pasar el trapo',
+      resuelta: false
+    },
+    {
+      tarea: 'Limpiar la mesa',
+      resuelta: false
+    },
+    {
+      tarea: 'Limpiar vidrios',
+      resuelta: false
+    },
+    {
+      tarea: 'Sacar telarañas',
+      resuelta: false
+    },
+    {
+      tarea: 'Sillas y mesas de afuera',
+      resuelta: false
+    },
+    {
+      tarea: 'Galletas dulces',
+      resuelta: false
+    },
+    {
+      tarea: 'Caja de té',
+      resuelta: false
+    },
+    {
+      tarea: 'Toallas y sábanas limpias',
+      resuelta: false
+    },
+    {
+      tarea: 'Detergente',
+      resuelta: false
+    },
+    {
+      tarea: 'Ollas',
+      resuelta: false
+    },
+    {
+      tarea: 'Tachos de basura',
+      resuelta: false
+    },
+    {
+      tarea: 'Cubiertos',
+      resuelta: false
+    },
+    {
+      tarea: 'Bandejas del horno',
+      resuelta: false
+    },
+    {
+      tarea: 'Tablas de asado',
+      resuelta: false
+    },
+    {
+      tarea: 'Pala de asador',
+      resuelta: false
+    },
+    {
+      tarea: 'Limpiar los espejos de las piezas',
       resuelta: false
     },
   ]
@@ -128,7 +197,10 @@ export default function Home() {
   return (
     <main>
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm">
-        <h2 className="text-center mb-2">Listado de tareas {finish}/{checkList.length}</h2>
+        <h2 className="text-center text-2xl mb-2">Listado de tareas {checkList.filter(tarea => tarea.resuelta === true).length}/{checkList.length}</h2>
+        <div className='p-3'>
+          <ProgressBar animated now={((checkList.filter(tarea => tarea.resuelta === true).length) * 100 / checkList.length)} />
+        </div>
         {checkList.map((c, index) => (
           !c.resuelta && visibleAlerts[index] ? (
             <div
@@ -141,8 +213,8 @@ export default function Home() {
               className={`${styles.fadeInOut} p-2 pb-1`}
             >
               <Alert variant="info">
-                <Alert.Heading> <h3>Tarea #{index + 1}</h3> </Alert.Heading>
-                <p>{c.tarea}</p>
+                <Alert.Heading> <h4>Tarea #{index + 1}</h4> </Alert.Heading>
+                <p className='text-lg'>{c.tarea}</p>
                 <hr />
                 <div className="d-flex justify-content-end pt-2">
                   <Button variant="outline-primary" onClick={() => setTask(index)}>
