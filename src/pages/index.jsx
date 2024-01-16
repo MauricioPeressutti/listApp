@@ -111,6 +111,14 @@ export default function Home() {
       resuelta: false
     },
     {
+      tarea: 'Controlar televisor',
+      resuelta: false
+    },
+    {
+      tarea: 'Controlae Aire acondicionado',
+      resuelta: false
+    },
+    {
       tarea: 'Bandejas del horno',
       resuelta: false
     },
